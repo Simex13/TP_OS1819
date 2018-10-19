@@ -7,6 +7,7 @@ struct dico {
 	DEF* def;
 
 	DICO* next;
+	DICO* previous;
 };
 
 struct definition {
@@ -16,46 +17,85 @@ struct definition {
 };
 
 int main(void){
+	DICO* dico;
+	int input = -1;
 
+	dico = (DICO*) malloc(sizeof(DICO));
+
+	printf("Hello! Welcome to your dictionnaries manager\n");
+
+	while (input)
+		menu();
+
+	printf("Goodbye\n");
+
+	return 0;
 }
 
-int add_head(char word[]){
+void create_word(DICO* word){
+	int c, index = 0;
+	DEF* def;
+
+	word->def = def;
+
+	printf("Write the word to add (no more than 50 characters): ");
+	scanf("%s", (*word).word); //demande le mot à créer
+
+	printf("Write the definition of the word (only one paragraph): ");
+
+	def = (DEF*) malloc(sizeof(DEF)); //alloue la mémoire
+	def->next = NULL;
+
+	while((c = getchar()) != '\n'){
+		/*vérifie s'il reste de la place dans le string et crée une seconde
+		 structure de donnée definition au besoin */
+		if (index == 254){
+			DEF* next;
+			next = (DEF*) malloc(sizeof(DEF));
+
+			next->next = NULL;
+			def->next = next;
+
+			def = next;
+			index = 0;
+		{
+
+		(*def).def[index++] = c; //insère les caractère dans le string et passe à l'index suivant
+	}
 }
 
-int add_tail(char word[]){
+int add_head(DICO* head){
 }
 
-int add_index(char word[]){
+int add_tail(DICO* tail){
 }
 
-int del_head(){
+int add_index(DICO* head, DICO* tail){
 }
 
-int del_tail(){
+int del_head(DICO* head){
 }
 
-int del_index(int index){
+int del_tail(DICO* tail){
 }
 
-int del_word(char word[]){
+int del_index(DICO* head, DICO* tail){
 }
 
-int find(char word[]){
+int del_word(DICO* head){
 }
 
-int copy(DICO dico){
+int find(DICO* head){
 }
 
-int display(DICO dico){
+int copy(DICO* dico){
+}
+
+int display(DICO* dico){
 }
 
 int menu(){
 }
 
-int sort(DICO dico, int order){
-}
-
-void get_word(char word[]){
-	printf("Give me the word: ");
-	scanf("%s", word);
+int sort(DICO* dico, int order){
 }
