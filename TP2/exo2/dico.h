@@ -1,23 +1,14 @@
-typedef struct dico DICO;
+typedef struct dictionary DICO;
+typedef struct word WORD;
 typedef struct definition DEF;
 
-void create_word(DICO* word);
-
-int add_head(DICO* head);
-int add_tail(DICO* tail);
-int add_index(DICO* tail, DICO* tail);
-
-int del_head(DICO* head);
-int del_tail(DICO* tail);
-int del_index(DICO* head, DICO* tail);
-int del_word(char []);
-
-int find(DICO* head);
-
-int copy(DICO* dico);
-
-int display(DICO* dico);
-
-int menu();
-
-int sort(DICO* dico, int order);
+int display_menu();
+void select_dico(DICO*);
+int del_all(DICO*);
+int del_all_w(DICO*);
+int del_def(DEF*);
+void create_dico(DICO*);
+void create_word(DICO*);
+void create_def(WORD*);
+int isempty(DICO*);
+void del_head(DICO*);
