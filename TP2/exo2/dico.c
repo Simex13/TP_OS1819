@@ -1,101 +1,81 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "dico.h"
+#include "dico_manager.h"
 
-struct dico {
-	char word[50];
-	DEF* def;
-
-	DICO* next;
-	DICO* previous;
+struct dictionary{
+    char name[50];
+    int lenght;
+    WORD* head;
+    WORD* tail;
+    DICO* next;
+};
+struct word{
+    char word[50];
+    DEF* def;
+    WORD* next;
+};
+struct definition{
+    char partition[255];
+    DEF* next;
 };
 
-struct definition {
-	char def[255];
+int main(int argc, char* argv[]){
+    int input;
+    DICO* dictionary;
+    dictionary = (DICO*)malloc(sizeof(DICO));
 
-	DEF* next;
-};
+    dictionary->lenght = 0;
+    dictionary->head = NULL;
+    dictionary->tail = NULL;
+    dictionary->next = NULL;
 
-int main(void){
-	DICO* dico;
-	int input = -1;
+    printf("Hello, welcome to your dictionary manager!\n");
+    while (input = display_menu()){
+        switch (input){
+            case 1: create_dico(dictionary);
+                break;
+            case 2: select_dico(dictionary);
+                break;
+            case 3: create_word(dictionary);
+                break;
+            case 4:
+                break;
+            default: return EXIT_FAILURE;
+        }
+    }
 
-	dico = (DICO*) malloc(sizeof(DICO));
+    printf("Thanks for using our dictionary manager!\nNow all your dictionaries will be suppressed\n");
 
-	printf("Hello! Welcome to your dictionnaries manager\n");
-
-	while (input)
-		menu();
-
-	printf("Goodbye\n");
-
-	return 0;
+    return del_all(dictionary);
 }
 
-void create_word(DICO* word){
-	int c, index = 0;
-	DEF* def;
+int display_menu(){return 0;}
+void select_dico(DICO* dic){}
+int del_all(DICO* dic){
+    DICO* tmp;
+    int result = 0;
 
-	word->def = def;
+    do {
+        tmp = dic->next;
+        result = del_all_w(dic);
+        free(dic);
+        dic = tmp;
+    } while (dic != NULL && !result);
 
-	printf("Write the word to add (no more than 50 characters): ");
-	scanf("%s", (*word).word); //demande le mot à créer
+    if (result != 0) return EXIT_FAILURE;
 
-	printf("Write the definition of the word (only one paragraph): ");
-
-	def = (DEF*) malloc(sizeof(DEF)); //alloue la mémoire
-	def->next = NULL;
-
-	while((c = getchar()) != '\n'){
-		/*vérifie s'il reste de la place dans le string et crée une seconde
-		 structure de donnée definition au besoin */
-		if (index == 254){
-			DEF* next;
-			next = (DEF*) malloc(sizeof(DEF));
-
-			next->next = NULL;
-			def->next = next;
-
-			def = next;
-			index = 0;
-		{
-
-		(*def).def[index++] = c; //insère les caractère dans le string et passe à l'index suivant
-	}
+    return 0;
 }
+int del_all_w(DICO* dic){
+    while (!isempty(dic))
+        del_head(dic);
 
-int add_head(DICO* head){
+    return 0;
 }
-
-int add_tail(DICO* tail){
-}
-
-int add_index(DICO* head, DICO* tail){
-}
-
-int del_head(DICO* head){
-}
-
-int del_tail(DICO* tail){
-}
-
-int del_index(DICO* head, DICO* tail){
-}
-
-int del_word(DICO* head){
-}
-
-int find(DICO* head){
-}
-
-int copy(DICO* dico){
-}
-
-int display(DICO* dico){
-}
-
-int menu(){
-}
-
-int sort(DICO* dico, int order){
-}
+int del_def(DEF* def){}
+void create_dico(DICO* dic){}
+void create_word(DICO* dic){}
+void create_def(WORD* word){}
+int isempty(DICO* dic){return 1;}
+void del_head(DICO* dic){}
